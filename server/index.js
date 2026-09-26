@@ -11,7 +11,7 @@ const leadsFile = path.join(root, 'data', 'leads.json');
 const app = express();
 app.use(express.json({ limit: '100kb' }));
 
-const clean = (v, max=300) => typeof v === 'string' ? v.trim().slice(0,max) : '';
+const clean = (v, max = 300) => typeof v === 'string' ? v.trim().slice(0, max) : '';
 
 app.post('/api/listings/search', async (req, res) => {
   try {
@@ -62,15 +62,15 @@ app.post('/api/leads', async (req, res) => {
         preApproved: b.qualification?.preApproved ?? null,
         budgetKnown: b.qualification?.budgetKnown ?? null
       },
-      listingInterest: Array.isArray(b.listingInterest) ? b.listingInterest.slice(0,10).map(x => ({
+      listingInterest: Array.isArray(b.listingInterest) ? b.listingInterest.slice(0, 10).map(x => ({
         id: clean(x.id, 100), area: clean(x.area, 100), neighbourhood: clean(x.neighbourhood, 100),
         propertyType: clean(x.propertyType, 80), price: Number(x.price) || null,
         action: clean(x.action, 80), detailUrl: clean(x.detailUrl, 500)
       })) : [],
       agent: {
-        knownFacts: Array.isArray(b.agent?.knownFacts) ? b.agent.knownFacts.slice(0,20).map(x => clean(x,200)) : [],
-        inferredFacts: Array.isArray(b.agent?.inferredFacts) ? b.agent.inferredFacts.slice(0,20).map(x => clean(x,200)) : [],
-        unknownFields: Array.isArray(b.agent?.unknownFields) ? b.agent.unknownFields.slice(0,20).map(x => clean(x,80)) : [],
+        knownFacts: Array.isArray(b.agent?.knownFacts) ? b.agent.knownFacts.slice(0, 20).map(x => clean(x, 200)) : [],
+        inferredFacts: Array.isArray(b.agent?.inferredFacts) ? b.agent.inferredFacts.slice(0, 20).map(x => clean(x, 200)) : [],
+        unknownFields: Array.isArray(b.agent?.unknownFields) ? b.agent.unknownFields.slice(0, 20).map(x => clean(x, 80)) : [],
         conversationSummary: clean(b.agent?.conversationSummary, 1600),
         requestedAction: clean(b.agent?.requestedAction, 100) || 'Contact Mylyne'
       },
@@ -79,7 +79,7 @@ app.post('/api/leads', async (req, res) => {
 
     if (!record.consentToContact) return res.status(400).json({ error: 'Contact consent is required.' });
     let leads = [];
-    try { leads = JSON.parse(await fs.readFile(leadsFile, 'utf8')); } catch {}
+    try { leads = JSON.parse(await fs.readFile(leadsFile, 'utf8')); } catch { }
     if (!Array.isArray(leads)) leads = [];
     leads.push(record);
     await fs.writeFile(leadsFile, JSON.stringify(leads, null, 2));
@@ -90,11 +90,13 @@ app.post('/api/leads', async (req, res) => {
   }
 });
 
-const dist = path.join(root, 'dist');
-try {
-  await fs.access(dist);
-  app.use(express.static(dist));
-  app.get('*', (_, res) => res.sendFile(path.join(dist, 'index.html')));
-} catch {}
+export default app;
 
-app.listen(3001, () => console.log('Lead/listing server: http://localhost:3001'));
+// const dist = path.join(root, 'dist');
+// try {
+//   await fs.access(dist);
+//   app.use(express.static(dist));
+//   app.get('*', (_, res) => res.sendFile(path.join(dist, 'index.html')));
+// } catch {}
+
+// app.listen(3001, () => console.log('Lead/listing server: http://localhost:3001'));
