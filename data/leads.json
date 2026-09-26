@@ -1,0 +1,58 @@
+[
+  {
+    "id": "lead_6b8dfedf-1336-4ffd-b200-7ceee31a598f",
+    "createdAt": "2026-09-26T21:40:31.769Z",
+    "source": {
+      "platform": "social",
+      "campaign": "general",
+      "content": "General social landing"
+    },
+    "contact": {
+      "name": "ss",
+      "email": "Sin@gmail.com",
+      "phone": "",
+      "preferredContact": "email"
+    },
+    "buyerProfile": {
+      "intent": "Buy my first home",
+      "propertyType": "unknown",
+      "area": "unknown",
+      "budget": "unknown",
+      "priority": "More space",
+      "timeline": "Soon",
+      "financing": "unknown"
+    },
+    "qualification": {
+      "buyingWithinSixMonths": true,
+      "preApproved": null,
+      "budgetKnown": null
+    },
+    "listingInterest": [
+      {
+        "id": "demo-surrey-002",
+        "area": "Surrey",
+        "neighbourhood": "Guildford",
+        "propertyType": "Townhome",
+        "price": 789000,
+        "action": "requested_more_like_this",
+        "detailUrl": "https://example.com/listing/demo-surrey-002"
+      }
+    ],
+    "agent": {
+      "knownFacts": [
+        "intent: Buy my first home",
+        "priority: More space",
+        "timeline: Soon"
+      ],
+      "inferredFacts": [],
+      "unknownFields": [
+        "occupation",
+        "financing",
+        "budget"
+      ],
+      "conversationSummary": "Visitor came from “General social landing”. They selected intent: Buy my first home; priority: More space; timeline: Soon. I’d start by comparing where your budget stretches furthest, then look at actual homes that fit. They interacted with 1 listing(s): Guildford Townhome (requested_more_like_this).",
+      "requestedAction": "Find/contact about matching homes"
+    },
+    "consentToContact": true
+  }
+]
